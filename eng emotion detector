@@ -1,0 +1,42 @@
+import transformers
+from transformers import pipeline
+
+
+
+
+
+####### usuing a pretrained model fro Eng text emotion
+
+emotion_classifier = pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base', return_all_scores=True)
+
+
+
+##### emotion function #######
+
+def detect_emotion(text):
+    results = emotion_classifier(text)
+    ########## emotion rate extraction 
+    emotions = [(result['label'], result['score']) for result in results[0]]
+    ##### ordering by highest rate
+    emotions.sort(key=lambda x: x[1], reverse=True)
+    return emotions
+
+##################### text for analysing the emotions ##########
+
+text= [
+    "I loved the movie! It actually made me cry a little bit .",
+    "That cake was okay, not so yum but not bad either.",
+    "I ate that pasta while crying and thinking about the pain of my loss but the pasta tasted so good"
+
+]
+
+
+########  Analyzing the emotion of the texts
+
+for text in text:
+    emotions = detect_emotion(text)
+    print(f"Text: {text}")
+    for emotion, score in emotions:
+        print(f"  {emotion}: {score:.2f}")
+    print()
+
