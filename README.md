@@ -1,4 +1,4 @@
-# sentiment-analysis
+# :robot: sentiment-analysis :robot:
 This project is using pre-trained model from the Hugging Face Transformers library to detect emotions in text.
 
 # Requirements
