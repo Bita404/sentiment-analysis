@@ -5,7 +5,7 @@ from transformers import pipeline
 
 
 
-####### usuing a pretrained model fro Eng text emotion
+####### using a pretrained model fro Eng text emotion
 
 emotion_classifier = pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base', return_all_scores=True)
 
@@ -15,9 +15,9 @@ emotion_classifier = pipeline('text-classification', model='j-hartmann/emotion-e
 
 def detect_emotion(text):
     results = emotion_classifier(text)
-    ########## emotion rate extraction 
+    ########## emotion and score  extraction 
     emotions = [(result['label'], result['score']) for result in results[0]]
-    ##### ordering by highest rate
+    ##### ordering by highest score
     emotions.sort(key=lambda x: x[1], reverse=True)
     return emotions
 
