@@ -1,39 +1,32 @@
-import transformers
+mport transformers
 from transformers import pipeline
+from datasets import load_dataset
+from sklearn.metrics import accuracy_score, classification_report
 
 
-
-
-
-####### using a pretrained model fro Eng text emotion
+####### using a pretrained model eng
 
 emotion_classifier = pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base', return_all_scores=True)
+#emotion_classifier = pipeline('text-classification', model='HooshvareLab/bert-fa-base-uncased', return_all_scores=True)
 
 
-
-##### emotion function #######
+### emotion function ###
 
 def detect_emotion(text):
     results = emotion_classifier(text)
-    ########## emotion and score  extraction 
+    
+    ########## emotion and score dict extraction
     emotions = [(result['label'], result['score']) for result in results[0]]
+    
     ##### ordering by highest score
     emotions.sort(key=lambda x: x[1], reverse=True)
     return emotions
 
-##################### text for analysing the emotions ##########
 
-text= [
-    "I loved the movie! It actually made me cry a little bit .",
-    "That cake was okay, not so yum but not bad either.",
-    "I ate that pasta while crying and thinking about the pain of my loss but the pasta tasted so good"
+dataset = load_dataset('go_emotions', split='train')
+texts = dataset['text']
 
-]
-
-
-########  Analyzing the emotion of the texts
-
-for text in text:
+for text in texts:
     emotions = detect_emotion(text)
     print(f"Text: {text}")
     for emotion, score in emotions:
