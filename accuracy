@@ -1,4 +1,3 @@
-import pandas as pd
 from transformers import pipeline
 from sklearn.metrics import accuracy_score, classification_report
 from datasets import load_dataset
