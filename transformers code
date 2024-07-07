@@ -1,8 +1,6 @@
-mport transformers
+import transformers
 from transformers import pipeline
 from datasets import load_dataset
-from sklearn.metrics import accuracy_score, classification_report
-
 
 ####### using a pretrained model eng
 
@@ -23,6 +21,11 @@ def detect_emotion(text):
     return emotions
 
 
+#text_sample= [
+    
+    #"jojo is an amazing anime I recommend it to everyone"
+#]
+
 dataset = load_dataset('go_emotions', split='train')
 texts = dataset['text']
 
@@ -32,4 +35,3 @@ for text in texts:
     for emotion, score in emotions:
         print(f"  {emotion}: {score:.2f}")
     print()
-
