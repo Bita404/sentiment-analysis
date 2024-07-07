@@ -1,4 +1,3 @@
-#import nltk 
 from textblob import TextBlob
 from datasets import load_dataset
 
@@ -14,12 +13,6 @@ def get_sentiment(text):
     else:
         return "Neutral"
 
-#text_samples = [
- #   "That ramen was awful",
-  #  "I wish I could cry.",
-   # "The movie was normal not great .",
-#]
-
 dataset = load_dataset('go_emotions', split='train')
 texts = dataset['text']
 
@@ -27,3 +20,4 @@ texts = dataset['text']
 for text in texts:
     sentiment = get_sentiment(text)
     print(f"Text: {text}\nSentiment: {sentiment}\n")
+
